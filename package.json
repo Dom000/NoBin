@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@prisma/client": "^4.13.0",
+    "argon2": "^0.30.3",
     "cloudinary": "^1.36.2",
     "formidable": "^2.1.1",
     "multer": "^1.4.5-lts.1",

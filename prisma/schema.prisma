@@ -9,3 +9,65 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+model Users {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  username      String    @unique
+  student_email String    @unique
+  password      String
+  post          Post[]
+  messages      Message[]
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+
+  @@map("users")
+}
+
+model Message {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  User       Users? @relation(fields: [userId], references: [id])
+  userId     String @db.ObjectId
+  recieverId String @db.ObjectId
+  method     String @default("Sent")
+  chats      Chat[]
+
+  @@map("messages")
+}
+
+model Chat {
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  Message    Message @relation(fields: [messageId], references: [id])
+  messageId  String  @db.ObjectId
+  recieverId String  @db.ObjectId
+  senderId   String  @db.ObjectId
+  text       String
+  image      String?
+
+  @@map("chats")
+}
+
+model Post {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  user        Users    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId      String   @db.ObjectId
+  title        String
+  description String
+  location    String
+  status      Boolean  @default(true)
+  images      Image[]
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  @@map("posts")
+}
+
+model Image {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  Post       Post     @relation(fields: [postId], references: [id])
+  url        String
+  postId     String   @db.ObjectId
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("images")
+}
