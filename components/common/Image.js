@@ -5,6 +5,7 @@ import { BiTimeFive } from "react-icons/bi";
 
 function Image({ src }) {
   const [loaded, setLoaded] = useState(false);
+  const [imageerror, setImageError] = useState(false);
   const imgref = useRef();
 
   useEffect(() => {
@@ -25,10 +26,23 @@ function Image({ src }) {
         </div>
       </div>
       <img
+        onError={() => setImageError(true)}
         ref={imgref}
-        src={loaded ? src : "/img/call-to-action-bg.jpg"}
+        src={
+          imageerror
+            ? "/img/call-to-action-bg.jpg"
+            : loaded
+            ? src
+            : "/img/call-to-action-bg.jpg"
+        }
         alt="product"
-        className={loaded ? "w-full h-[200px] object-cover" : "blur"}
+        className={
+          imageerror
+            ? "blur"
+            : loaded
+            ? "w-full h-[200px] object-cover"
+            : "blur"
+        }
       />
       <div className="p-3 space-y-3">
         <div>
