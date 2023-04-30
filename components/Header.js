@@ -29,7 +29,7 @@ function Header() {
       <img
         src="/img/logo2.png"
         alt="icon"
-        className=" w-32 object-contain  md:w-56 px-1 md:px-5 border-l-4 border-l-NoBingreen"
+        className="visible w-32 object-contain  md:w-56 px-1 md:px-5 border-l-4 border-l-NoBingreen"
       />
       <div className="relative hidden md:flex items-center">
         <div className="absolute bg-white rounded-md right-2 px-3 py-1">

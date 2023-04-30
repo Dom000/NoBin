@@ -11,7 +11,9 @@ function MyApp({ Component, pageProps }) {
     <div>
       <Head />
       <Navbar />
-      <Component {...pageProps} />
+      <div className="pt-24">
+        <Component {...pageProps} />
+      </div>
       <Footer />
     </div>
   );
