@@ -1,4 +1,7 @@
 import React from "react";
+import { AiFillTwitterCircle, AiOutlineInstagram } from "react-icons/ai";
+import { BsFacebook } from "react-icons/bs";
+import { FaLinkedin } from "react-icons/fa";
 
 function about() {
   return (
@@ -42,6 +45,74 @@ function about() {
         donation is used to its fullest potential and that all funds are
         distributed to reputable and trustworthy students.
       </p>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-16">
+        <div className="bg-slate-200 max-w-[350px] w-[330px] rounded-lg shadow-xl">
+          <img
+            src="/img/Maleek.jpeg"
+            alt="hero"
+            className="w-full h-[200px] object-fill"
+          />
+          <div className="p-3">
+            {" "}
+            <b className="text-xl">Babajide Onayemi (Maleek)</b>
+            <p>Developer</p>
+            <p className="text-gray-700">
+              You can relay on our amazing features list and also our customer
+              services will be great experience.
+            </p>
+            <div className="flex space-x-1 mt-4">
+              <AiFillTwitterCircle className=" text-xl text-NoBingreen transition-all" />
+              <BsFacebook className=" text-[17px] text-NoBingreen transition-all" />
+              <AiOutlineInstagram className=" text-xl text-NoBingreen transition-all" />
+              <FaLinkedin className=" text-xl text-NoBingreen transition-all" />
+            </div>
+          </div>
+        </div>
+        <div className="bg-slate-200 max-w-[350px] w-[330px] rounded-lg shadow-xl">
+          <img
+            src="/img/teema.jpeg"
+            alt="hero"
+            className="w-full h-[200px] object-fill"
+          />
+          <div className="p-3">
+            {" "}
+            <b className="text-xl">Olakorede Fatimah Oloko</b>
+            <p>Web Developer</p>
+            <p className="text-gray-700">
+              You can relay on our amazing features list and also our customer
+              services will be great experience.
+            </p>
+            <div className="flex space-x-1 mt-4">
+              <AiFillTwitterCircle className=" text-xl text-NoBingreen transition-all" />
+              <BsFacebook className=" text-[17px] text-NoBingreen transition-all" />
+              <AiOutlineInstagram className=" text-xl text-NoBingreen transition-all" />
+              <FaLinkedin className=" text-xl text-NoBingreen transition-all" />
+            </div>
+          </div>
+        </div>
+        <div className="bg-slate-200 max-w-[350px] w-[330px] rounded-lg shadow-xl">
+          <img
+            src="/img/Chinaza.jpeg"
+            alt="hero"
+            className="w-full h-[200px] object-fill"
+          />
+          <div className="p-3">
+            {" "}
+            <b className="text-xl">Chinaza Ogbonna</b>
+            <p>Developer</p>
+            <p className="text-gray-700">
+              You can relay on our amazing features list and also our customer
+              services will be great experience.
+            </p>
+            <div className="flex space-x-1 mt-4">
+              <AiFillTwitterCircle className=" text-xl text-NoBingreen transition-all" />
+              <BsFacebook className=" text-[17px] text-NoBingreen transition-all" />
+              <AiOutlineInstagram className=" text-xl text-NoBingreen transition-all" />
+              <FaLinkedin className=" text-xl text-NoBingreen transition-all" />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
