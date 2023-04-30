@@ -33,7 +33,7 @@ function Head_c() {
         />
         <meta
           property="og:image"
-          content="https://86369972.vercel.app/NoBin7.png"
+          content="https://no-bin.vercel.app/img/favicon2.png"
         />
 
         <meta property="twitter:card" content="summary_large_image" />
