@@ -43,6 +43,10 @@ async function handler(req, res) {
             resource_type: "auto",
             use_filename: true,
             unique_filename: false,
+            width: "768",
+            height: "450",
+            crop: "limit",
+            quality: 80,
           })
             .then(async (result) => {
               await prisma.Image.createMany({

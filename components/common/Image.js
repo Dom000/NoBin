@@ -26,11 +26,11 @@ function Image({ src }) {
       </div>
       <img
         ref={imgref}
-        src={src}
+        src={loaded ? src : "/img/call-to-action-bg.jpg"}
         alt="product"
-        className={loaded ? "" : "blur"}
+        className={loaded ? "w-full h-[200px] object-cover" : "blur"}
       />
-      <div onClick={console.log(loaded)} className="p-3 space-y-3">
+      <div className="p-3 space-y-3">
         <div>
           <b className="pb-1">Gel Memory Foam...</b>
           <p className="text-sm">

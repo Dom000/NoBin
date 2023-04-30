@@ -34,28 +34,28 @@ function Footer() {
             </div>
             <div className=" flex space-x-3 pb-2 border-b border-slate-500/40 items-center">
               <IoIosArrowForward />
-              <Link className="hover:text-NoBingreen transition-all" href={"/"}>
+              <Link className="hover:text-NoBingreen transition-all" href={"/about"}>
                 {" "}
                 About us
               </Link>
             </div>
             <div className=" flex space-x-3 pb-2 border-b border-slate-500/40 items-center">
               <IoIosArrowForward />
-              <Link className="hover:text-NoBingreen transition-all" href={"/"}>
+              <Link className="hover:text-NoBingreen transition-all" href={"/contact"}>
                 {" "}
                 Contact Us
               </Link>
             </div>
             <div className=" flex space-x-3 pb-2 border-b border-slate-500/40 items-center">
               <IoIosArrowForward />
-              <Link className="hover:text-NoBingreen" href={"/"}>
+              <Link className="hover:text-NoBingreen" href={"/donation"}>
                 {" "}
                 Donation
               </Link>
             </div>
             <div className=" flex space-x-3 pb-2 border-b border-slate-500/40 items-center">
               <IoIosArrowForward />
-              <Link className="hover:text-NoBingreen" href={"/"}>
+              <Link className="hover:text-NoBingreen" href={"/privacy"}>
                 {" "}
                 Privacy policy
               </Link>

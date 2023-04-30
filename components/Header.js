@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import useWindowScrollPosition from "@rehooks/window-scroll-position";
 import { AiOutlineSearch } from "react-icons/ai";
 import Button from "./common/Button";
+import Link from "next/link";
 
 function Header() {
   const [change, setChange] = useState(false);
@@ -26,11 +27,14 @@ function Header() {
           : "p-3 md:p-5  flex justify-between space-x-3 transition-all fixed w-full "
       }
     >
-      <img
-        src="/img/logo2.png"
-        alt="icon"
-        className="visible w-32 object-contain  md:w-56 px-1 md:px-5 border-l-4 border-l-NoBingreen"
-      />
+      <Link href={"/"}>
+        <img
+          src="/img/logo2.png"
+          alt="icon"
+          className="visible w-32 object-contain  md:w-56 px-1 md:px-5 border-l-4 border-l-NoBingreen"
+        />
+      </Link>
+
       <div className="relative hidden md:flex items-center">
         <div className="absolute bg-white rounded-md right-2 px-3 py-1">
           {" "}
