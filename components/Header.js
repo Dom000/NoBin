@@ -22,16 +22,16 @@ function Header() {
     <div
       className={
         change
-          ? "p-5 bg-[#111111] fixed w-full shadow-lg transition-all opacity-95 flex justify-between"
-          : "p-5  flex justify-between  transition-all fixed w-full "
+          ? " p-3 md:p-5 bg-[#111111] fixed w-full space-x-3 shadow-lg transition-all opacity-95 flex justify-between"
+          : "p-3 md:p-5  flex justify-between space-x-3 transition-all fixed w-full "
       }
     >
       <img
         src="/img/logo2.png"
         alt="icon"
-        className="w-56 px-5 border-l-4 border-l-NoBingreen"
+        className=" w-32 object-contain  md:w-56 px-1 md:px-5 border-l-4 border-l-NoBingreen"
       />
-      <div className="relative flex items-center">
+      <div className="relative hidden md:flex items-center">
         <div className="absolute bg-white rounded-md right-2 px-3 py-1">
           {" "}
           <AiOutlineSearch className=" text-lg" />

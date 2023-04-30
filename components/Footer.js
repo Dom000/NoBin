@@ -9,9 +9,9 @@ import Button from "./common/Button";
 function Footer() {
   return (
     <div className=" text-white">
-      <div className="bg-[#111111] p-10  grid grid-cols-4 gap-10">
+      <div className="bg-[#111111] p-10  grid md:grid-cols-3 lg:grid-cols-4 gap-10">
         <div>
-          <img src="/img/logo2.png" alt="icon" className="w-56 " />
+          <img src="/img/logo2.png" alt="icon" className=" w-28 md:w-56 " />
           <p>
             Our platform was created with the mission of helping student of
             Edinburgh Napier University in need and creating a positive impact
@@ -94,8 +94,11 @@ function Footer() {
               weekly newsletter to keep you updated on what is happening.
             </p>
             <div className="flex mt-5 relative items-center">
-              <input className="p-1.5 border-none rounded-lg focus:outline-none caret-black" />
-              <Button text={"subscribe"} className="bg-NoBingreen absolute right-0 text-white" />
+              <input className="p-1.5 w-full border-none rounded-lg focus:outline-none caret-black" />
+              <Button
+                text={"subscribe"}
+                className="bg-NoBingreen absolute right-0 text-white"
+              />
             </div>
           </div>
         </div>
