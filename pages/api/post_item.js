@@ -37,12 +37,12 @@ async function handler(req, res) {
             postId,
           },
         });
-        const fileArr = [...e.files.file];
+        const fileArr = e.files.file;
 
-        const arrFile = (e) => {
-          if (typeof e == Array) {
-          }
-        };
+        // const arrFile = (e) => {
+        //   if (typeof e == Array) {
+        //   }
+        // };
         fileArr.forEach((item) => {
           upload(item.filepath, {
             public_id: item.newFilename,

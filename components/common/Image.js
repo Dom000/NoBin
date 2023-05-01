@@ -62,7 +62,10 @@ function Image({ src }) {
           </p>
         </div>
         <div className=" flex justify-between">
-          <Button text={"reply"} className={"bg-NoBingreen"} />
+          <Button
+            text={"reply"}
+            className={"bg-NoBingreen  hover:bg-NoBingreen/40"}
+          />
           <div className=" flex space-x-3 text-gray-600 text-sm items-center">
             <BiTimeFive />
             <p>2 hours ago</p>

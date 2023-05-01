@@ -1,8 +1,39 @@
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import Button from "../components/common/Button";
+import { useSnackbar } from "notistack";
+import axios from "axios";
 
 function login() {
+  // snackbar hooks
+  const { enqueueSnackbar } = useSnackbar();
+
+  //  state to hols user inputes value during the login processes
+  const [studentemail, setStudentEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  // function to handle login function and validates user email before submition
+  const handleLogin = () => {
+    const validateEmail = [studentemail].includes("@live.napier.ac.uk");
+    if (validateEmail == false) {
+      enqueueSnackbar("Email most follow this standard @live.napier.ac.uk", {
+        variant: "error",
+      });
+    } else if (password == "") {
+      enqueueSnackbar("password can't be empty", {
+        variant: "error",
+      });
+    } else {
+      axios
+        .post("/api/login", {
+          password,
+          student_email: studentemail,
+        })
+        .then((res) => {
+          console.log(res);
+        });
+    }
+  };
   return (
     <div className="flex flex-col p-6 justify-center items-center">
       {" "}
@@ -18,17 +49,26 @@ function login() {
         />
         <div className="my-5 w-full space-y-3 flex flex-col items-center justify-center">
           <input
+            value={studentemail}
+            onChange={(e) => {
+              setStudentEmail(e.target.value.toLocaleLowerCase());
+            }}
             type={"email"}
             placeholder="Student Email"
             className=" px-2 py-1  focus:outline-NoBingreen border-2 border-black/40 rounded-md w-full "
           />
           <input
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value.toLocaleLowerCase());
+            }}
             type={"password"}
             placeholder="password"
             className=" px-2 py-1  focus:outline-NoBingreen border-2 border-black/40 rounded-md w-full "
           />
-          
+
           <Button
+            onClick={handleLogin}
             text={"Login "}
             className={"bg-NoBingreen  w-full hover:bg-NoBingreen/40"}
           />
