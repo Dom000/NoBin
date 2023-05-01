@@ -19,7 +19,6 @@ model Users {
   messages      Message[]
   created_at    DateTime  @default(now())
   updated_at    DateTime  @updatedAt
-
   @@map("users")
 }
 

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { MdLocalOffer, MdLocationOn } from "react-icons/md";
 import Button from "./Button";
 import { BiTimeFive } from "react-icons/bi";
+import Link from "next/link";
 
 function Image({ src }) {
   const [loaded, setLoaded] = useState(false);
@@ -46,7 +47,15 @@ function Image({ src }) {
       />
       <div className="p-3 space-y-3">
         <div>
-          <b className="pb-1">Gel Memory Foam...</b>
+          <Link
+            className="hover:text-NoBingreen hover:underline"
+            href={`/item/${1}`}
+          >
+            <b className="pb-1">
+              Gel Memory Foam in Gel Memory Foam inGel Memory Foam in{" "}
+            </b>
+          </Link>
+
           <p className="text-sm">
             Gel Memory Foam...Gel Memory Foam...vvvGel Memory Foam...Gel Memory
             Foam...

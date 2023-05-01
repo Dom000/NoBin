@@ -7,6 +7,7 @@ export const config = {
   },
 };
 
+//  function to process image file
 const readFile = (req) => {
   const form = formidable({ multiples: true });
   return new Promise((resolve, reject) => {
@@ -16,6 +17,7 @@ const readFile = (req) => {
     });
   });
 };
+
 async function handler(req, res) {
   try {
     if (req.method !== "POST") {
@@ -35,8 +37,13 @@ async function handler(req, res) {
             postId,
           },
         });
+        const fileArr = [...e.files.file];
 
-        e.files.file.forEach((item) => {
+        const arrFile = (e) => {
+          if (typeof e == Array) {
+          }
+        };
+        fileArr.forEach((item) => {
           upload(item.filepath, {
             public_id: item.newFilename,
             folder: "nobin",
