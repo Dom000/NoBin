@@ -5,13 +5,20 @@ import { BiTimeFive } from "react-icons/bi";
 import { MdLocalOffer, MdLocationOn } from "react-icons/md";
 import Button from "../../components/common/Button";
 import ReactTimeAgo from "react-time-ago";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useSnackbar } from "notistack";
+import refreshmessage from "../../lib/refreshmessages";
+import { handleUserMessage } from "../../features/nobinslice";
 
 function item() {
+  const { enqueueSnackbar } = useSnackbar();
+  const dispatch = useDispatch();
+
   const router = useRouter();
   const { id } = router.query;
   const [product, setproduct] = useState({});
   const islogedIn = useSelector((state) => state.nobin?.isLogedIn);
+  const userDetails = useSelector((state) => state.nobin?.userDetails);
 
   useEffect(() => {
     const callApi = async () => {
@@ -22,7 +29,31 @@ function item() {
     callApi();
   }, [router.query.id]);
 
-  console.log(product);
+  // function to send message to the poster
+  const sendMessage = () => {
+    console.log(data);
+    if (product.postId == userDetails.id) {
+      enqueueSnackbar("you cant reply to yourself");
+    } else {
+      axios
+        .post("/api/send_message", {
+          senderId: userDetails.id,
+          recieverId: data.postId,
+          text: "Hello i am intrested in this offer",
+          image: data.images[0].url,
+        })
+        .then(async (res) => {
+          console.log(res);
+          enqueueSnackbar("message sent");
+          await refreshmessage(userDetails.id).then((res) =>
+            dispatch(handleUserMessage(res.data))
+          );
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
   return (
     <div className="flex justify-center w-full">
       <div className="bg-slate-200  md:w-1/2 rounded-lg shadow-xl">
@@ -55,6 +86,7 @@ function item() {
           {islogedIn && (
             <div className=" flex justify-between">
               <Button
+                onClick={sendMessage}
                 text={"reply"}
                 className={"bg-NoBingreen ring-black  hover:bg-NoBingreen/40"}
               />

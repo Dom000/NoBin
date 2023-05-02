@@ -8,7 +8,7 @@ import Link from "next/link";
 import { BsPlus } from "react-icons/bs";
 
 export default function Home({ data }) {
-  const [posts, setPost] = useState(data.data);
+  const [posts, setPost] = useState(data.data.reverse());
   const [pagecount, setpagecount] = useState(3);
   console.log(posts);
   return (

@@ -16,6 +16,7 @@ async function handler(req, res) {
 
   try {
     const { id } = req.query;
+    console.log(id);
     if (req.method !== "GET") {
       res
         .status(400)
@@ -23,7 +24,7 @@ async function handler(req, res) {
     } else {
       const items = await prisma.User.findUnique({
         where: {
-          id,
+          student_email: id,
         },
       });
       res.json({ status: true, data: items });
