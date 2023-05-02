@@ -1,19 +1,19 @@
 import * as argon from "argon2";
 import prisma from "../../lib/prisma";
-import Cors from "cors";
-import initMiddleware from "../../lib/init_middleware";
+// import Cors from "cors";
+// import initMiddleware from "../../lib/init_middleware";
 
-// Initialize the cors middleware
-const cors = initMiddleware(
-  // You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
-  Cors({
-    // Only allow requests with GET, POST and OPTIONS
-    methods: ["POST", "OPTIONS"],
-  })
-);
+// // Initialize the cors middleware
+// const cors = initMiddleware(
+//   // You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
+//   Cors({
+//     // Only allow requests with GET, POST and OPTIONS
+//     methods: ["POST", "OPTIONS"],
+//   })
+// );
 
 export default async function handler(req, res) {
-  await cors(req, res);
+  // await cors(req, res);
 
   const { password, username, student_email } = req.body;
   const hashedPassword = await argon.hash(password);
