@@ -1,7 +1,20 @@
 import * as argon from "argon2";
 import prisma from "../../lib/prisma";
+import Cors from "cors";
 
+import initMiddleware from "../../lib/init_middleware";
+
+// Initialize the cors middleware
+const cors = initMiddleware(
+  // You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
+  Cors({
+    // Only allow requests with GET, POST and OPTIONS
+    methods: ["POST", "OPTIONS"],
+  })
+);
 export default async function handler(req, res) {
+  await cors(req, res);
+
   const { password, student_email } = req.body;
   try {
     if (req.method !== "POST") {
@@ -21,7 +34,7 @@ export default async function handler(req, res) {
       const comparePassword = await argon.verify(user.password, password);
 
       if (!user) {
-         res.status(404).json({
+        res.status(404).json({
           status: false,
           message: `there's no user with such email address`,
         });
