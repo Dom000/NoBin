@@ -3,34 +3,58 @@ import React, { useState } from "react";
 import Button from "../components/common/Button";
 import { useSnackbar } from "notistack";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { handleUserDetails, handleUserLogin } from "../features/nobinslice";
+import { useRouter } from "next/router";
 
 function login() {
+  // next navigation hooks
+  const router = useRouter();
+
+  // redux payload dispatcher
+  const dispatch = useDispatch();
+
   // snackbar hooks
   const { enqueueSnackbar } = useSnackbar();
 
   //  state to hols user inputes value during the login processes
   const [studentemail, setStudentEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // function to handle login function and validates user email before submition
-  const handleLogin = () => {
-    const validateEmail = [studentemail].includes("@live.napier.ac.uk");
+  const handleLogin = async () => {
+    setLoading(true);
+    const validateEmail = studentemail.includes("@live.napier.ac.uk");
     if (validateEmail == false) {
+      setLoading(false);
       enqueueSnackbar("Email most follow this standard @live.napier.ac.uk", {
         variant: "error",
       });
     } else if (password == "") {
+      setLoading(false);
       enqueueSnackbar("password can't be empty", {
         variant: "error",
       });
     } else {
-      axios
+      await axios
         .post("/api/login", {
           password,
           student_email: studentemail,
         })
         .then((res) => {
-          console.log(res);
+          setLoading(false);
+          dispatch(handleUserDetails(res.data.data));
+          dispatch(handleUserLogin(true));
+          enqueueSnackbar(`login success`, {
+            variant: "success",
+          });
+          router.push("/proile");
+        })
+        .catch((err) => {
+          enqueueSnackbar(`${err.message}`, {
+            variant: "error",
+          });
         });
     }
   };
@@ -51,7 +75,7 @@ function login() {
           <input
             value={studentemail}
             onChange={(e) => {
-              setStudentEmail(e.target.value.toLocaleLowerCase());
+              setStudentEmail(e.target.value.toLowerCase());
             }}
             type={"email"}
             placeholder="Student Email"
@@ -68,6 +92,7 @@ function login() {
           />
 
           <Button
+            loading={loading}
             onClick={handleLogin}
             text={"Login "}
             className={"bg-NoBingreen  w-full hover:bg-NoBingreen/40"}
