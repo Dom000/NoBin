@@ -121,7 +121,7 @@ function Header() {
                   : "text-3xl cursor-pointer "
               }
             />
-            {userChatList.length > 1 && (
+            {userChatList.length > 0 && (
               <span className="absolute h-2 w-2 rounded-full top-1 right-0 animate-pulse bg-red-500"></span>
             )}
           </Link>
