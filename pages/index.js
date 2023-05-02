@@ -3,6 +3,9 @@ import Image from "../components/common/Image";
 import styles from "../styles/Home.module.css";
 import { useState } from "react";
 import Button from "../components/common/Button";
+import { ImFilesEmpty } from "react-icons/im";
+import Link from "next/link";
+import { BsPlus } from "react-icons/bs";
 
 export default function Home({ data }) {
   const [posts, setPost] = useState(data.data);

@@ -8,7 +8,7 @@ import { FaUserTie } from "react-icons/fa";
 import { BiLogIn } from "react-icons/bi";
 import { useSnackbar } from "notistack";
 import { useRouter } from "next/router";
-import { handleUserDetails, handleUserLogin } from "../features/nobinslice";
+import { handleUserDetails, handleUserLogin, handleUserMessage, handleUserPost } from "../features/nobinslice";
 import { MdAssignmentAdd } from "react-icons/md";
 
 function Header() {
@@ -36,6 +36,8 @@ function Header() {
     router.push("/login");
     dispatch(handleUserDetails(null));
     dispatch(handleUserLogin(false));
+    dispatch(handleUserPost([]));
+    dispatch(handleUserMessage([]));
     enqueueSnackbar("logged out", {
       variant: "info",
     });
