@@ -52,7 +52,8 @@ function login() {
           router.push("/profile");
         })
         .catch((err) => {
-          enqueueSnackbar(`${err.message}`, {
+          setLoading(false);
+          enqueueSnackbar(`incorrect email`, {
             variant: "error",
           });
         });

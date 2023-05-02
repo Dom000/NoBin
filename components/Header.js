@@ -3,10 +3,18 @@ import useWindowScrollPosition from "@rehooks/window-scroll-position";
 import { AiFillMessage, AiOutlineSearch } from "react-icons/ai";
 import Button from "./common/Button";
 import Link from "next/link";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FaUserTie } from "react-icons/fa";
+import { BiLogIn } from "react-icons/bi";
+import { useSnackbar } from "notistack";
+import { useRouter } from "next/router";
+import { handleUserDetails, handleUserLogin } from "../features/nobinslice";
 
 function Header() {
+  const { enqueueSnackbar } = useSnackbar();
+  const dispatch = useDispatch();
+  const router = useRouter();
+
   const isUserLogedin = useSelector((state) => state.nobin?.isLogedIn);
   const [change, setChange] = useState(false);
   const changePosition = 30;
@@ -22,6 +30,15 @@ function Header() {
     }
   });
 
+  // function to handle user logout event
+  const logout = () => {
+    router.push("/login");
+    dispatch(handleUserDetails(null));
+    dispatch(handleUserLogin(false));
+    enqueueSnackbar("logged out", {
+      variant: "info",
+    });
+  };
   return (
     <div
       className={
@@ -47,10 +64,16 @@ function Header() {
       <div
         className={
           isUserLogedin
-            ? "flex justify-between space-x-20  "
-            : "flex justify-between space-x-3  "
+            ? "flex md:justify-between space-x-8 md:space-x-20  "
+            : "flex md:justify-between space-x-3  "
         }
       >
+        {isUserLogedin && (
+          <BiLogIn
+            onClick={logout}
+            className="text-3xl cursor-pointer  text-red-600"
+          />
+        )}
         {isUserLogedin ? (
           <Link href={"/profile"}>
             <FaUserTie

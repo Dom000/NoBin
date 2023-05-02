@@ -13,14 +13,15 @@ export default async function handler(req, res) {
         where: {
           student_email: student_email.toLowerCase(),
         },
-        include:{
-          post:true
-        }
+        include: {
+          post: true,
+        },
       });
+      console.log(user);
       const comparePassword = await argon.verify(user.password, password);
 
       if (!user) {
-        res.status(404).json({
+         res.status(404).json({
           status: false,
           message: `there's no user with such email address`,
         });
