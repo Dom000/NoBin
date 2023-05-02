@@ -11,9 +11,8 @@ const cors = initMiddleware(
   })
 );
 
-
 async function handler(req, res) {
-    await cors(req, res);
+  await cors(req, res);
 
   try {
     const { id } = req.query;
@@ -22,12 +21,9 @@ async function handler(req, res) {
         .status(400)
         .json({ status: false, message: `This not a ${req.method} request` });
     } else {
-      const items = await prisma.Post.findUnique({
+      const items = await prisma.User.findUnique({
         where: {
-          id,
-        },
-        include: {
-          images: true,
+          student_email: id,
         },
       });
       res.json({ status: true, data: items });

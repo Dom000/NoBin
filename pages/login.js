@@ -4,8 +4,9 @@ import Button from "../components/common/Button";
 import { useSnackbar } from "notistack";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { handleUserDetails, handleUserLogin } from "../features/nobinslice";
+import { handleUserDetails, handleUserLogin, handleUserPost } from "../features/nobinslice";
 import { useRouter } from "next/router";
+import refreshpost from "../lib/refreshpost";
 
 function login() {
   // next navigation hooks
@@ -42,8 +43,11 @@ function login() {
           password,
           student_email: studentemail,
         })
-        .then((res) => {
+        .then(async (res) => {
           setLoading(false);
+           await refreshpost(res.data.data.id).then((res) =>
+              dispatch(handleUserPost(res.data))
+            );
           dispatch(handleUserDetails(res.data.data));
           dispatch(handleUserLogin(true));
           enqueueSnackbar(`login success`, {
