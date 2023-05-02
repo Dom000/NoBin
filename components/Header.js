@@ -8,13 +8,19 @@ import { FaUserTie } from "react-icons/fa";
 import { BiLogIn } from "react-icons/bi";
 import { useSnackbar } from "notistack";
 import { useRouter } from "next/router";
-import { handleUserDetails, handleUserLogin, handleUserMessage, handleUserPost } from "../features/nobinslice";
+import {
+  handleUserDetails,
+  handleUserLogin,
+  handleUserMessage,
+  handleUserPost,
+} from "../features/nobinslice";
 import { MdAssignmentAdd } from "react-icons/md";
 
 function Header() {
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   const router = useRouter();
+  const userChatList = useSelector((state) => state.nobin?.userMessage);
 
   const isUserLogedin = useSelector((state) => state.nobin?.isLogedIn);
   const [change, setChange] = useState(false);
@@ -107,7 +113,7 @@ function Header() {
           </Link>
         )}
         {isUserLogedin ? (
-          <Link href={"/messages"}>
+          <Link href={"/messages"} className="relative">
             <AiFillMessage
               className={
                 change
@@ -115,6 +121,9 @@ function Header() {
                   : "text-3xl cursor-pointer "
               }
             />
+            {userChatList.length > 1 && (
+              <span className="absolute h-2 w-2 rounded-full top-1 right-0 animate-pulse bg-red-500"></span>
+            )}
           </Link>
         ) : (
           <Link href={"/register"}>
