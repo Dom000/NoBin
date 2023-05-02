@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Layout from "../components/Layout";
-import { IoLocationOutline } from "react-icons/io";
+import { IoLocationOutline, IoMdCloudUpload } from "react-icons/io";
 import Button from "../components/common/Button";
 import { MdLocationOn } from "react-icons/md";
 import axios from "axios";
 import Load from "../components/common/Loader";
 import { Loader } from "@mantine/core";
+import { useSnackbar } from "notistack";
 
 function make_post() {
+  const { enqueueSnackbar } = useSnackbar();
+
   // state to collect user input from form field
   const [location, setLocation] = useState("");
   const [desc, setDesc] = useState("");
@@ -20,6 +23,9 @@ function make_post() {
 
   const [imagepreview, setimagepreview] = useState([]);
   const [imagefile, setimagefile] = useState([]);
+
+  // file ref
+  const openfileref = useRef();
 
   //   function search address in realtime
 
@@ -46,10 +52,46 @@ function make_post() {
 
   //   function to handle post to the backend api
   const handlePost = () => {};
+
+  //   function to extract image
+  const handleImage = (e) => {
+    if (imagefile.length >= 3) {
+      enqueueSnackbar("image can't be more than 3");
+    } else {
+      const preview = URL.createObjectURL(e.target.files[0]);
+      setimagepreview((state) => [...state, preview]);
+      setimagefile((state) => [...state, e.target.files[0]]);
+    }
+  };
+
   return (
     <div className="my-5 w-full   ">
       <div className="space-y-3">
-        <div className="flex justify-center"></div>
+        <div className="w-full">
+          <span
+            onClick={() => openfileref.current.click()}
+            className="cursor-pointer flex mb-3 flex-col justify-center items-center "
+          >
+            <input
+              ref={openfileref}
+              onChange={handleImage}
+              type="file"
+              hidden
+            />
+            <IoMdCloudUpload className="text-NoBingreen text-3xl md:text-5xl" />
+            <p>Upload Image</p>
+          </span>
+          <div className=" grid grid-cols-2 gap-1 md:gap-3 md:grid-cols-3">
+            {imagepreview.map((item, index) => (
+              <img
+                key={index}
+                src={item}
+                alt="image"
+                className="rounded-md border border-NoBingreen object-cover w-28 h-32"
+              />
+            ))}
+          </div>
+        </div>
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
