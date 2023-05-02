@@ -4,6 +4,7 @@ import Button from "./Button";
 import { BiTimeFive } from "react-icons/bi";
 import Link from "next/link";
 import ReactTimeAgo from "react-time-ago";
+import { useSelector } from "react-redux";
 
 function Image({ data }) {
   const { description, images, location, title, created_at, id } = data;
@@ -11,6 +12,9 @@ function Image({ data }) {
   const [imageerror, setImageError] = useState(false);
   const imgref = useRef();
 
+  // user loged in state from redux
+  const islogedIn = useSelector((state) => state.nobin?.isLogedIn);
+console.log(islogedIn);
   useEffect(() => {
     imgref.current.complete && setLoaded(true);
   }, []);
@@ -49,16 +53,22 @@ function Image({ data }) {
 
           <p className="text-sm">{description.substring(0.25)}</p>
         </div>
-        <div className=" flex justify-between">
-          <Button
-            text={"reply"}
-            className={"bg-NoBingreen ring-black  hover:bg-NoBingreen/40"}
-          />
-          <div className=" flex space-x-3 text-gray-600 text-sm items-center">
-            <BiTimeFive />
-            <ReactTimeAgo date={created_at} locale="en-US" />
+        {islogedIn ? (
+          <div className=" flex justify-between">
+            <Button
+              text={"reply"}
+              className={"bg-NoBingreen ring-black  hover:bg-NoBingreen/40"}
+            />
+            <div className=" flex space-x-3 text-gray-600 text-sm items-center">
+              <BiTimeFive />
+              <ReactTimeAgo date={created_at} locale="en-US" />
+            </div>
           </div>
-        </div>
+        ) : (
+          <p className="text-red-400 underline">
+            SignUp to reply to this offer
+          </p>
+        )}
       </div>
     </div>
   );

@@ -5,12 +5,13 @@ import { BiTimeFive } from "react-icons/bi";
 import { MdLocalOffer, MdLocationOn } from "react-icons/md";
 import Button from "../../components/common/Button";
 import ReactTimeAgo from "react-time-ago";
-
+import { useSelector } from "react-redux";
 
 function item() {
   const router = useRouter();
   const { id } = router.query;
   const [product, setproduct] = useState({});
+  const islogedIn = useSelector((state) => state.nobin?.isLogedIn);
 
   useEffect(() => {
     const callApi = async () => {
@@ -51,21 +52,25 @@ function item() {
 
             <p className="text-sm">{product.description}</p>
           </div>
-          <div className=" flex justify-between">
-            <Button
-              text={"reply"}
-              className={"bg-NoBingreen ring-black  hover:bg-NoBingreen/40"}
-            />
-            <div className=" flex space-x-3 text-gray-600 text-sm items-center">
-              <BiTimeFive />
-              <ReactTimeAgo
-                date={
-                  product.hasOwnProperty("created_at") ? product?.created_at : 1
-                }
-                locale="en-US"
+          {islogedIn && (
+            <div className=" flex justify-between">
+              <Button
+                text={"reply"}
+                className={"bg-NoBingreen ring-black  hover:bg-NoBingreen/40"}
               />
+              <div className=" flex space-x-3 text-gray-600 text-sm items-center">
+                <BiTimeFive />
+                <ReactTimeAgo
+                  date={
+                    product.hasOwnProperty("created_at")
+                      ? product?.created_at
+                      : 1
+                  }
+                  locale="en-US"
+                />
+              </div>
             </div>
-          </div>
+          )}
           <div className=" flex justify-between">
             <b>Author:</b>
             <b>{product.user?.username}</b>
