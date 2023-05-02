@@ -5,8 +5,10 @@ import { IoIosArrowForward } from "react-icons/io";
 import { BsFacebook } from "react-icons/bs";
 import { FaLinkedin } from "react-icons/fa";
 import Button from "./common/Button";
+import { useSelector } from "react-redux";
 
 function Footer() {
+
   return (
     <div className=" text-white">
       <div className="bg-[#111111] p-10  grid md:grid-cols-3 lg:grid-cols-4 gap-10">
@@ -34,14 +36,20 @@ function Footer() {
             </div>
             <div className=" flex space-x-3 pb-2 border-b border-slate-500/40 items-center">
               <IoIosArrowForward />
-              <Link className="hover:text-NoBingreen transition-all" href={"/about"}>
+              <Link
+                className="hover:text-NoBingreen transition-all"
+                href={"/about"}
+              >
                 {" "}
                 About us
               </Link>
             </div>
             <div className=" flex space-x-3 pb-2 border-b border-slate-500/40 items-center">
               <IoIosArrowForward />
-              <Link className="hover:text-NoBingreen transition-all" href={"/contact"}>
+              <Link
+                className="hover:text-NoBingreen transition-all"
+                href={"/contact"}
+              >
                 {" "}
                 Contact Us
               </Link>

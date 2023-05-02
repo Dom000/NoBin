@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import useWindowScrollPosition from "@rehooks/window-scroll-position";
-import { AiOutlineSearch } from "react-icons/ai";
+import { AiFillMessage, AiOutlineSearch } from "react-icons/ai";
 import Button from "./common/Button";
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import { FaUserTie } from "react-icons/fa";
 
 function Header() {
+  const isUserLogedin = useSelector((state) => state.nobin?.isLogedIn);
   const [change, setChange] = useState(false);
   const changePosition = 30;
-
   let position = useWindowScrollPosition();
 
   useEffect(() => {
@@ -19,7 +21,7 @@ function Header() {
       setChange(false);
     }
   });
-  
+
   return (
     <div
       className={
@@ -38,26 +40,53 @@ function Header() {
 
       <div className="relative hidden md:flex items-center">
         <div className="absolute bg-white rounded-md right-2 px-3 py-1">
-          {" "}
-          <AiOutlineSearch className=" text-lg" />
+          <AiOutlineSearch className={" text-lg"} />
         </div>
         <input className=" px-2 py-1  focus:outline-NoBingreen border-2 border-black/40 rounded-full " />
       </div>
-      <div className="flex justify-between space-x-3">
-        <Link href={"/login"}>
-          {" "}
-          <Button
-            text={"Login "}
-            className={"bg-NoBingreen hover:bg-NoBingreen/40"}
-          />
-        </Link>
-        <Link href={"/register"}>
-          {" "}
-          <Button
-            text={"Register "}
-            className={"bg-NoBingreen hover:bg-NoBingreen/40"}
-          />
-        </Link>
+      <div
+        className={
+          isUserLogedin
+            ? "flex justify-between space-x-20  "
+            : "flex justify-between space-x-3  "
+        }
+      >
+        {isUserLogedin ? (
+          <Link href={"/profile"}>
+            <FaUserTie
+              className={
+                change
+                  ? "text-white text-3xl cursor-pointer"
+                  : "text-3xl cursor-pointer "
+              }
+            />
+          </Link>
+        ) : (
+          <Link href={"/login"}>
+            <Button
+              text={"Login "}
+              className={"bg-NoBingreen hover:bg-NoBingreen/40"}
+            />
+          </Link>
+        )}
+        {isUserLogedin ? (
+          <Link href={"/messages"}>
+            <AiFillMessage
+              className={
+                change
+                  ? "text-white text-3xl cursor-pointer"
+                  : "text-3xl cursor-pointer "
+              }
+            />
+          </Link>
+        ) : (
+          <Link href={"/register"}>
+            <Button
+              text={"Register "}
+              className={"bg-NoBingreen hover:bg-NoBingreen/40"}
+            />
+          </Link>
+        )}
       </div>
     </div>
   );

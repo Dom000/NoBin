@@ -49,7 +49,7 @@ function login() {
           enqueueSnackbar(`login success`, {
             variant: "success",
           });
-          router.push("/proile");
+          router.push("/profile");
         })
         .catch((err) => {
           enqueueSnackbar(`${err.message}`, {

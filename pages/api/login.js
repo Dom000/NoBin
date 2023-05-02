@@ -13,6 +13,9 @@ export default async function handler(req, res) {
         where: {
           student_email: student_email.toLowerCase(),
         },
+        include:{
+          post:true
+        }
       });
       const comparePassword = await argon.verify(user.password, password);
 

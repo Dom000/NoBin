@@ -9,7 +9,7 @@ const initialState = {
       : false,
   userDetails:
     typeof window !== "undefined"
-      ? localStorage.getItem("NobinmUser")
+      ? localStorage.getItem("NobinUser")
         ? JSON.parse(localStorage.getItem("NobinUser"))
         : null
       : null,
@@ -30,7 +30,7 @@ export const counterSlice = createSlice({
 
     handleUserDetails: (state, action) => {
       state.userDetails = action.payload;
-      localStorage.setItem("NobinUser", state.isLogedIn);
+      localStorage.setItem("NobinUser", JSON.stringify(state.userDetails));
     },
   },
 });
