@@ -94,23 +94,30 @@ function make_post() {
         formData.append("file", itm);
       });
 
-      axios.post("/api/post_item", formData).then(async (res) => {
-        setLoading(false);
+      axios
+        .post("/api/post_item", formData)
+        .then(async (res) => {
+          setLoading(false);
 
-        enqueueSnackbar("post upload success", {
-          variant: "success",
+          if (res) {
+            enqueueSnackbar("post upload success", {
+              variant: "success",
+            });
+            setAdress("");
+            setTitle("");
+            setDesc("");
+            setimagefile([]);
+            setimagepreview([]);
+
+            // refresh to get all user post
+            await refreshpost(userDetails.id).then((res) =>
+              dispatch(handleUserPost(res.data))
+            );
+          }
+        })
+        .catch((err) => {
+          console.log(err);
         });
-        setAdress("");
-        setTitle("");
-        setDesc("");
-        setimagefile([]);
-        setimagepreview([]);
-
-        // refresh to get all user post
-        await refreshpost(userDetails.id).then((res) =>
-          dispatch(handleUserPost(res.data))
-        );
-      });
     }
   };
   return (

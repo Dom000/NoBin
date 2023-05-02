@@ -1,6 +1,20 @@
 import prisma from "../../../lib/prisma";
+import initMiddleware from "../../../lib/init_middleware";
+import Cors from "cors";
+
+// Initialize the cors middleware
+const cors = initMiddleware(
+  // You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
+  Cors({
+    // Only allow requests with GET, POST and OPTIONS
+    methods: ["GET", "OPTIONS"],
+  })
+);
+
 
 async function handler(req, res) {
+    await cors(req, res);
+
   try {
     const { id } = req.query;
     if (req.method !== "GET") {
