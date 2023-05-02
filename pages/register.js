@@ -46,7 +46,7 @@ function register() {
       });
       setLoading(false);
     } else {
-      axios
+      await axios
         .post("/api/signup", {
           username,
           password,
