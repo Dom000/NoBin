@@ -6,22 +6,19 @@ import { MdLocalOffer, MdLocationOn } from "react-icons/md";
 import Button from "../../components/common/Button";
 import ReactTimeAgo from "react-time-ago";
 
-export const Author = async ({ id }) => {
-  await axios.get(`/api/getsingle_user/${id}`).then((res) => {
-    console.log(res);
-  });
 
-  return <b>John</b>;
-};
 function item() {
   const router = useRouter();
   const { id } = router.query;
   const [product, setproduct] = useState({});
 
   useEffect(() => {
-    axios.get(`/api/getsingle_item/${id}`).then((res) => {
-      setproduct(res.data.data);
-    });
+    const callApi = async () => {
+      await axios.get(`/api/getsingle_item/${id}`).then((res) => {
+        setproduct(res.data.data);
+      });
+    };
+    callApi();
   }, [router.query.id]);
 
   console.log(product);
@@ -38,7 +35,7 @@ function item() {
             <p className="text-sm">{product.location}</p>
           </div>
         </div>
-        <div className="  flex-col justify-center md:flex-row space-y-3 md:space-y-0 md:space-x-6">
+        <div className="  flex-col flex justify-center md:flex-row space-y-3 md:space-y-0 md:space-x-6">
           {product?.images?.map((itm, index) => (
             <img
               key={index}
@@ -71,13 +68,11 @@ function item() {
           </div>
           <div className=" flex justify-between">
             <b>Author:</b>
-            {/* <Author
-              id={
-                product.hasOwnProperty("postId")
-                  ? product?.id
-                  : "64503ecd900bf734787a3514"
-              }
-            /> */}
+            <b>{product.user?.username}</b>
+          </div>
+          <div className=" flex justify-between">
+            <b>Email:</b>
+            <b>{product.user?.student_email}</b>
           </div>
         </div>
       </div>

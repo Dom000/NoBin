@@ -1,7 +1,6 @@
 import prisma from "../../../lib/prisma";
 import initMiddleware from "../../../lib/init_middleware";
 import Cors from "cors";
-
 // Initialize the cors middleware
 const cors = initMiddleware(
   // You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
@@ -16,14 +15,19 @@ async function handler(req, res) {
 
   try {
     const { id } = req.query;
+
     if (req.method !== "GET") {
       res
         .status(400)
         .json({ status: false, message: `This not a ${req.method} request` });
     } else {
-      const items = await prisma.User.findUnique({
+      const items = await prisma.Post.findUnique({
         where: {
           id,
+        },
+        include: {
+          images: true,
+          user:true
         },
       });
       res.json({ status: true, data: items });
