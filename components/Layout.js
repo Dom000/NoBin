@@ -32,7 +32,7 @@ function Layout({ children }) {
           </div>
         </div>
       </div>
-      <div className="rounded-lg border shadow-lg w-full md:w-[70%] flex flex-col items-center justify-center p-5">
+      <div className="rounded-lg border shadow-lg w-full md:w-[70%] flex flex-col justify-center p-5">
         {children}
       </div>
     </div>

@@ -6,6 +6,10 @@ import Footer from "../components/Footer";
 import { store } from "../features/store";
 import { Provider } from "react-redux";
 import { SnackbarProvider } from "notistack";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en.json";
+
+TimeAgo.addDefaultLocale(en);
 const Navbar = dynamic(() => import("../components/Header"), { ssr: false });
 
 function MyApp({ Component, pageProps }) {
