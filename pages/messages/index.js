@@ -112,22 +112,27 @@ function index() {
                           : "flex justify-start items-start "
                       }
                     >
-                      <div
-                        className={
-                          mss.senderId == userDetails.id
-                            ? "rounded-md bg-slate-300 m-2 p-2"
-                            : "rounded-md bg-NoBingreen/30 m-2 p-2"
-                        }
-                      >
-                        <p>{mss.text}</p>
-                        {mss.image !== null && (
-                          <img
-                            src={mss.image}
-                            alt="attch"
-                            className="w-32 rounded-md pt-1"
-                          />
-                        )}
+                      <div className="flex space-x-1">
+                        <div
+                          className={
+                            mss.senderId == userDetails.id
+                              ? "rounded-md bg-slate-300 m-2 p-2"
+                              : "rounded-md bg-NoBingreen/30 m-2 p-2"
+                          }
+                        >
+                          <p>{mss.text}</p>
+                          {mss.image !== null && (
+                            <img
+                              src={mss.image}
+                              alt="attch"
+                              className="w-32 rounded-md pt-1"
+                            />
+                          )}
+                        </div>
                       </div>
+                      {mss.senderId == userDetails.id && (
+                        <small className="italic">you</small>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -212,20 +217,26 @@ function index() {
                             : "flex justify-start items-start "
                         }
                       >
-                        <div
-                          className={
-                            mss.senderId == userDetails.id
-                              ? "rounded-md bg-slate-300 m-2 p-2"
-                              : "rounded-md bg-NoBingreen/30 m-2 p-2"
-                          }
-                        >
-                          <p>{mss.text}</p>
-                          {mss.image !== null && (
-                            <img
-                              src={mss.image}
-                              alt="attch"
-                              className="w-32 rounded-md pt-1"
-                            />
+                        <div className="flex space-x-1">
+                          {" "}
+                          <div
+                            className={
+                              mss.senderId == userDetails.id
+                                ? "rounded-md bg-slate-300 m-2 p-2"
+                                : "rounded-md bg-NoBingreen/30 m-2 p-2"
+                            }
+                          >
+                            <p>{mss.text}</p>
+                            {mss.image !== null && (
+                              <img
+                                src={mss.image}
+                                alt="attch"
+                                className="w-32 rounded-md pt-1"
+                              />
+                            )}
+                          </div>{" "}
+                          {mss.senderId == userDetails.id && (
+                            <small className="italic">you</small>
                           )}
                         </div>
                       </div>
