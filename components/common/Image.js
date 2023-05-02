@@ -26,23 +26,27 @@ function Image({ data }) {
   // function to send message to the poster
   const sendMessage = () => {
     console.log(data);
-    axios
-      .post("/api/send_message", {
-        senderId: userDetails.id,
-        recieverId: data.postId,
-        text: "Hello i am intrested in this offer",
-        image: data.images[0].url,
-      })
-      .then(async (res) => {
-        console.log(res);
-        enqueueSnackbar("message sent");
-        await refreshmessage(userDetails.id).then((res) =>
-          dispatch(handleUserMessage(res.data))
-        );
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (data.postId == userDetails.id) {
+      enqueueSnackbar("you cant reply to yourself");
+    } else {
+      axios
+        .post("/api/send_message", {
+          senderId: userDetails.id,
+          recieverId: data.postId,
+          text: "Hello i am intrested in this offer",
+          image: data.images[0].url,
+        })
+        .then(async (res) => {
+          console.log(res);
+          enqueueSnackbar("message sent");
+          await refreshmessage(userDetails.id).then((res) =>
+            dispatch(handleUserMessage(res.data))
+          );
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   return (
