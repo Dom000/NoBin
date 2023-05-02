@@ -55,7 +55,7 @@ function index() {
           ))
         )}
       </div>
-      <div className="rounded-lg border mb-8 md:mb-0 shadow-lg w-full md:w-[70%] flex flex-col justify-center items-center p-3 md:p-5">
+      <div className="rounded-lg hidden  border mb-8 md:mb-0 shadow-lg w-full md:w-[70%] md:flex flex-col justify-center items-center p-3 md:p-5">
         <div className="space-y-3 flex justify-center items-center flex-col">
           <ImFilesEmpty className="text-4xl " />
           <p className="text-center">No Recent Messages yet</p>
