@@ -48,6 +48,6 @@ export default async function handler(req, res) {
         .json({ status: true, message: "account creation success" });
     }
   } catch (error) {
-    console.log(error.message);
+    res.status(500).json({ status: false, error: error });
   }
 }

@@ -63,6 +63,7 @@ function register() {
         })
         .catch((err) => {
           setLoading(false);
+          console.log(err);
           enqueueSnackbar(`email or username is aleady taken,try another`, {
             variant: "error",
           });
