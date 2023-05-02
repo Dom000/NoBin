@@ -5,19 +5,45 @@ import { BiTimeFive } from "react-icons/bi";
 import Link from "next/link";
 import ReactTimeAgo from "react-time-ago";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { useSnackbar } from "notistack";
+import refreshmessage from "../../lib/refreshmessages";
 
 function Image({ data }) {
+  const { enqueueSnackbar } = useSnackbar();
   const { description, images, location, title, created_at, id } = data;
   const [loaded, setLoaded] = useState(false);
   const [imageerror, setImageError] = useState(false);
   const imgref = useRef();
-
+  const userDetails = useSelector((state) => state.nobin?.userDetails);
   // user loged in state from redux
   const islogedIn = useSelector((state) => state.nobin?.isLogedIn);
-console.log(islogedIn);
+  console.log(islogedIn);
   useEffect(() => {
     imgref.current.complete && setLoaded(true);
   }, []);
+
+  // function to send message to the poster
+  const sendMessage = () => {
+    console.log(data);
+    axios
+      .post("/api/send_message", {
+        senderId: userDetails.id,
+        recieverId: data.postId,
+        text: "Hello i am intrested in this offer",
+        image: data.images[0].url,
+      })
+      .then(async (res) => {
+        console.log(res);
+        enqueueSnackbar("message sent");
+        await refreshmessage(userDetails.id).then((res) =>
+          dispatch(handleUserMessage(res.data))
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div className="bg-slate-200 max-w-[350px] w-[320px] rounded-lg shadow-xl">
@@ -56,6 +82,7 @@ console.log(islogedIn);
         {islogedIn ? (
           <div className=" flex justify-between">
             <Button
+              onClick={sendMessage}
               text={"reply"}
               className={"bg-NoBingreen ring-black  hover:bg-NoBingreen/40"}
             />
