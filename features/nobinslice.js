@@ -13,6 +13,18 @@ const initialState = {
         ? JSON.parse(localStorage.getItem("NobinUser"))
         : null
       : null,
+  userPost:
+    typeof window !== "undefined"
+      ? localStorage.getItem("NobinUserPost")
+        ? JSON.parse(localStorage.getItem("NobinUserPost"))
+        : []
+      : [],
+  userMessage:
+    typeof window !== "undefined"
+      ? localStorage.getItem("NobinUserMessage")
+        ? JSON.parse(localStorage.getItem("NobinUserMesaage"))
+        : []
+      : [],
 };
 
 export const counterSlice = createSlice({
@@ -32,10 +44,26 @@ export const counterSlice = createSlice({
       state.userDetails = action.payload;
       localStorage.setItem("NobinUser", JSON.stringify(state.userDetails));
     },
+    handleUserPost: (state, action) => {
+      state.userPost = action.payload;
+      localStorage.setItem("NobinUserPost", JSON.stringify(state.userPost));
+    },
+    handleUserMessage: (state, action) => {
+      state.userMessage = action.payload;
+      localStorage.setItem(
+        "NobinUserMessage",
+        JSON.stringify(state.userMessage)
+      );
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { handleUserDetails, handleUserLogin } = counterSlice.actions;
+export const {
+  handleUserDetails,
+  handleUserLogin,
+  handleUserMessage,
+  handleUserPost,
+} = counterSlice.actions;
 
 export default counterSlice.reducer;

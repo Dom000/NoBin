@@ -1,12 +1,23 @@
 import { upload } from "../../cloudinary/cloudinary";
 import formidable from "formidable";
 import prisma from "../../lib/prisma";
+import initMiddleware from "../../lib/init_middleware";
+import Cors from "cors";
+
 export const config = {
   api: {
     bodyParser: false,
   },
 };
 
+// Initialize the cors middleware
+const cors = initMiddleware(
+  // You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
+  Cors({
+    // Only allow requests with GET, POST and OPTIONS
+    methods: ["POST", "OPTIONS"],
+  })
+);
 //  function to process image file
 const readFile = (req) => {
   const form = formidable({ multiples: true });
@@ -19,6 +30,8 @@ const readFile = (req) => {
 };
 
 async function handler(req, res) {
+  await cors(req, res);
+
   try {
     if (req.method !== "POST") {
       res
@@ -65,7 +78,7 @@ async function handler(req, res) {
             })
             .catch((error) => {
               res.status(500).json({
-                success: false,
+                status: false,
                 message: error,
               });
             });

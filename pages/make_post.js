@@ -7,8 +7,14 @@ import axios from "axios";
 import Load from "../components/common/Loader";
 import { Loader } from "@mantine/core";
 import { useSnackbar } from "notistack";
+import { useDispatch, useSelector } from "react-redux";
+import refreshpost from "../lib/refreshpost";
+import { handleUserPost } from "../features/nobinslice";
+import { env } from "../next.config";
 
 function make_post() {
+  const dispatch = useDispatch();
+
   const { enqueueSnackbar } = useSnackbar();
 
   // state to collect user input from form field
@@ -18,6 +24,9 @@ function make_post() {
   const [typing, setTyping] = useState(false);
   const [loading, setLoading] = useState(false);
   const [adress, setAdress] = useState([]);
+
+  //   get userdetails from store
+  const userDetails = useSelector((state) => state.nobin?.userDetails);
 
   //   state to hold image file and file object
 
@@ -35,7 +44,7 @@ function make_post() {
       const searchAddress = async () => {
         axios
           .get(
-            `https://api.mapbox.com/geocoding/v5/mapbox.places/${location}.json?country=gb&proximity=-73.990593%2C40.740121&types=place%2Cregion%2Caddress%2Clocality&access_token=pk.eyJ1IjoibGVnZW5kMjAwMCIsImEiOiJjbDJ0YXVpZWMwMmk0M2dvMjg5ajAybHJ3In0.RTlPzNJfcCNTJshHxxuilw`
+            `https://api.mapbox.com/geocoding/v5/mapbox.places/${location}.json?country=gb&proximity=-73.990593%2C40.740121&types=place%2Cregion%2Caddress%2Clocality&access_token=${process.env.TOKEN}`
           )
           .then((res) => {
             setAdress(res.data.features);
@@ -50,9 +59,6 @@ function make_post() {
     };
   }, [location !== ""]);
 
-  //   function to handle post to the backend api
-  const handlePost = () => {};
-
   //   function to extract image
   const handleImage = (e) => {
     if (imagefile.length >= 3) {
@@ -63,7 +69,50 @@ function make_post() {
       setimagefile((state) => [...state, e.target.files[0]]);
     }
   };
+  console.log(imagefile);
 
+  //   function to handle post to the backend api
+  const handlePost = () => {
+    setLoading(true);
+    if (imagefile.length === 0) {
+      setLoading(false);
+      enqueueSnackbar("please select an image");
+    } else if (imagefile.length == 1) {
+      setLoading(false);
+
+      enqueueSnackbar("select at least 2 or 3 images");
+    } else if (location == "" || desc == "" || title == "") {
+      setLoading(false);
+      enqueueSnackbar("please enter all the fields");
+    } else {
+      const formData = new FormData();
+      formData.append("location", location);
+      formData.append("description", desc);
+      formData.append("title", title);
+      formData.append("postId", userDetails.id);
+      imagefile.forEach((itm) => {
+        formData.append("file", itm);
+      });
+
+      axios.post("/api/post_item", formData).then(async (res) => {
+        setLoading(false);
+
+        enqueueSnackbar("post upload success", {
+          variant: "success",
+        });
+        setAdress("");
+        setTitle("");
+        setDesc("");
+        setimagefile([]);
+        setimagepreview([]);
+
+        // refresh to get all user post
+        await refreshpost(userDetails.id).then((res) =>
+          dispatch(handleUserPost(res.data))
+        );
+      });
+    }
+  };
   return (
     <div className="my-5 w-full   ">
       <div className="space-y-3">

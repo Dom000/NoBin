@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 
 function Layout({ children }) {
   const userDetails = useSelector((state) => state.nobin?.userDetails);
+  const userPost = useSelector((state) => state.nobin?.userPost);
 
   return (
     <div className="flex flex-col md:flex-row md:space-x-9 p-6 ">
@@ -23,7 +24,7 @@ function Layout({ children }) {
           </div>
           <div className="flex justify-between space-x-5">
             <b className="text-sm">POST</b>
-            <p>{userDetails?.post.length}</p>
+            <p>{userPost?.length}</p>
           </div>
           <div className="flex justify-between space-x-5">
             <b className="text-sm">DATE-JOINED</b>

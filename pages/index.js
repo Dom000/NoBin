@@ -2,7 +2,8 @@ import Head from "next/head";
 import Image from "../components/common/Image";
 import styles from "../styles/Home.module.css";
 
-export default function Home() {
+export default function Home({ data }) {
+  console.log(data);
   return (
     <div className="flex flex-col p-6 justify-center items-center">
       <b className=" text-center text-xl pb-2">RECENT ITEMS</b>
@@ -25,4 +26,12 @@ export default function Home() {
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  // Fetch data from external API
+  const res = await fetch("https://no-bin.vercel.app/api/get_items");
+  const data = await res.json();
+  // Pass data to the page via props
+  return { props: { data } };
 }
