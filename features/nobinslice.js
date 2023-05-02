@@ -22,7 +22,7 @@ const initialState = {
   userMessage:
     typeof window !== "undefined"
       ? localStorage.getItem("NobinUserMessage")
-        ? JSON.parse(localStorage.getItem("NobinUserMesaage"))
+        ? JSON.parse(localStorage.getItem("NobinUserMessage"))
         : []
       : [],
 };

@@ -34,13 +34,15 @@ model Message {
 }
 
 model Chat {
-  id         String  @id @default(auto()) @map("_id") @db.ObjectId
-  Message    Message @relation(fields: [messageId], references: [id])
-  messageId  String  @db.ObjectId
-  recieverId String  @db.ObjectId
-  senderId   String  @db.ObjectId
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  Message    Message  @relation(fields: [messageId], references: [id])
+  messageId  String   @db.ObjectId
+  recieverId String   @db.ObjectId
+  senderId   String   @db.ObjectId
   text       String
   image      String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   @@map("chats")
 }

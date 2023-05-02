@@ -4,9 +4,15 @@ import Button from "../components/common/Button";
 import { useSnackbar } from "notistack";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { handleUserDetails, handleUserLogin, handleUserPost } from "../features/nobinslice";
+import {
+  handleUserDetails,
+  handleUserLogin,
+  handleUserMessage,
+  handleUserPost,
+} from "../features/nobinslice";
 import { useRouter } from "next/router";
 import refreshpost from "../lib/refreshpost";
+import refreshmessage from "../lib/refreshmessages";
 
 function login() {
   // next navigation hooks
@@ -45,15 +51,19 @@ function login() {
         })
         .then(async (res) => {
           setLoading(false);
-           await refreshpost(res.data.data.id).then((res) =>
-              dispatch(handleUserPost(res.data))
-            );
+          await refreshpost(res.data.data.id).then((res) =>
+            dispatch(handleUserPost(res.data))
+          );
+          await refreshmessage(res.data.data.id).then((res) =>
+            dispatch(handleUserMessage(res.data))
+          );
+          router.push("/profile");
+
           dispatch(handleUserDetails(res.data.data));
           dispatch(handleUserLogin(true));
           enqueueSnackbar(`login success`, {
             variant: "success",
           });
-          router.push("/profile");
         })
         .catch((err) => {
           setLoading(false);
