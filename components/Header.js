@@ -9,6 +9,7 @@ import { BiLogIn } from "react-icons/bi";
 import { useSnackbar } from "notistack";
 import { useRouter } from "next/router";
 import { handleUserDetails, handleUserLogin } from "../features/nobinslice";
+import { MdAssignmentAdd } from "react-icons/md";
 
 function Header() {
   const { enqueueSnackbar } = useSnackbar();
@@ -51,7 +52,7 @@ function Header() {
         <img
           src="/img/logo2.png"
           alt="icon"
-          className="visible w-32 object-contain  md:w-56 px-1 md:px-5 border-l-4 border-l-NoBingreen"
+          className="visible w-32 mt-1 object-contain  md:w-56 px-1 md:px-5 border-l-4 border-l-NoBingreen"
         />
       </Link>
 
@@ -64,7 +65,7 @@ function Header() {
       <div
         className={
           isUserLogedin
-            ? "flex md:justify-between space-x-8 md:space-x-20  "
+            ? "flex md:justify-between space-x-6 md:space-x-20  "
             : "flex md:justify-between space-x-3  "
         }
       >
@@ -74,13 +75,24 @@ function Header() {
             className="text-3xl cursor-pointer  text-red-600"
           />
         )}
+        {isUserLogedin && (
+          <Link href={"/make_post"}>
+            <MdAssignmentAdd
+              className={
+                change
+                  ? "text-white text-3xl cursor-pointer"
+                  : "text-3xl cursor-pointer "
+              }
+            />
+          </Link>
+        )}
         {isUserLogedin ? (
           <Link href={"/profile"}>
             <FaUserTie
               className={
                 change
-                  ? "text-white text-3xl cursor-pointer"
-                  : "text-3xl cursor-pointer "
+                  ? "text-white  text-[27px] cursor-pointer"
+                  : "text-[27px] cursor-pointer "
               }
             />
           </Link>

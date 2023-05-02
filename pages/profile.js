@@ -8,6 +8,7 @@ import { handleUserDetails, handleUserLogin } from "../features/nobinslice";
 import { useRouter } from "next/router";
 import { ImFilesEmpty } from "react-icons/im";
 import { BsPlus } from "react-icons/bs";
+import Layout from "../components/Layout";
 
 function profile() {
   // next navigation hooks
@@ -16,7 +17,6 @@ function profile() {
   // redux payload dispatcher
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.nobin?.userDetails);
-  console.log(userDetails);
   // snackbar hooks
   const { enqueueSnackbar } = useSnackbar();
 
@@ -63,46 +63,19 @@ function profile() {
   };
   return (
     <div className="flex flex-col md:flex-row md:space-x-9 p-6 ">
-      <div className="rounded-lg border mb-8 md:mb-0 shadow-lg w-full md:w-[30%] flex flex-col justify-center items-center p-3 md:p-5">
-        <img
-          className="w-32 h-32 rounded-full object-cover"
-          src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
-          alt="hro"
-        />
-        <div className="my-5 w-full space-y-3 ">
-          <div className="flex justify-between space-x-5">
-            <b>USER-NAME</b>
-            <p>{userDetails?.username}</p>
-          </div>
-          <div className="flex justify-between space-x-5">
-            <b>EMAIL</b>
-            <p>{userDetails?.student_email}</p>
-          </div>
-          <div className="flex justify-between space-x-5">
-            <b>POST</b>
-            <p>{userDetails?.post.length}</p>
-          </div>
-          <div className="flex justify-between space-x-5">
-            <b>DATE-JOINED</b>
-            <p>{new Date(userDetails?.created_at).toDateString()}</p>
-          </div>
-        </div>
-      </div>
-      <div className="rounded-lg border shadow-lg w-full md:w-[70%] flex flex-col justify-center items-center p-5">
-        <div className="space-y-3 flex justify-center items-center flex-col">
-          <ImFilesEmpty className="text-4xl " />
-          <p className="text-center">
-            No post yet,will you like to create one{" "}
-          </p>
+      <div className="space-y-3 flex justify-center items-center flex-col">
+        <ImFilesEmpty className="text-4xl " />
+        <p className="text-center">No post yet,will you like to create one </p>
+        <Link href={"/make_post"}>
           <Button
             icon={BsPlus}
             text={"create"}
             className={"bg-NoBingreen hover:bg-NoBingreen/40"}
           />
-        </div>
+        </Link>
       </div>
     </div>
   );
 }
-
+profile.Layout = Layout;
 export default profile;
