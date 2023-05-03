@@ -58,8 +58,8 @@ function index() {
         <div
           className={
             userChatList.length == 0
-              ? "rounded-lg border hidden mb-8 md:mb-0 shadow-lg w-full md:w-[30%] h-[400px] max-h-[350px] overflow-y-auto md:flex flex-col justify-center items-center p-3 md:p-5"
-              : "rounded-lg border hidden md:flex mb-8 md:mb-0 shadow-lg w-full md:w-[30%] h-[400px] max-h-[350px] overflow-y-auto flex-col  p-3 md:p-5"
+              ? "rounded-lg border hidden  md:mb-0 shadow-lg w-full md:w-[30%] h-[400px] max-h-[400px] overflow-y-auto md:flex flex-col justify-center items-center p-3 md:p-5"
+              : "rounded-lg border hidden md:flex  md:mb-0 shadow-lg w-full md:w-[30%] h-[400px] max-h-[400px] overflow-y-auto flex-col  p-3 md:p-5"
           }
         >
           {userChatList.length == 0 ? (
@@ -93,7 +93,7 @@ function index() {
             ))
           )}
         </div>
-        <div className="rounded-lg hidden  border mb-8 md:mb-0 shadow-lg w-full md:w-[70%] md:flex flex-col justify-center items-center p-3 md:p-5">
+        <div className="rounded-lg hidden  border md:mb-0 shadow-lg w-full md:w-[70%] md:flex flex-col justify-center items-center p-3 md:p-5">
           {activechat == null ? (
             <div className="space-y-3 flex justify-center items-center flex-col">
               <ImFilesEmpty className="text-4xl " />
@@ -101,7 +101,7 @@ function index() {
             </div>
           ) : (
             <>
-              <div className="h-[300px] max-h-[350px] w-full relative  flex-col  p-3 md:p-5">
+              <div className="h-[350px] max-h-[400px] w-full relative  flex-col  p-3 md:p-5">
                 <b className="hover:underline flex md:hidden">Back</b>
                 <div className="w-full h-[300px] overflow-y-auto pb-20">
                   {activechat.chats.map((mss, id) => (
@@ -152,13 +152,14 @@ function index() {
           )}
         </div>
       </div>
+      {/* mobbile section */}
       <div className=" block md:hidden p-5">
         {activechat == null ? (
           <div
             className={
               userChatList.length == 0
-                ? "rounded-lg border mb-8 md:mb-0 shadow-lg w-full h-[400px] max-h-[350px] overflow-y-auto md:flex flex-col justify-center items-center p-3 md:p-5"
-                : "rounded-lg border  mb-8 md:mb-0 shadow-lg w-full h-[400px] max-h-[350px] overflow-y-auto flex-col  p-3 md:p-5"
+                ? "rounded-lg border  md:mb-0 shadow-lg w-full h-[400px] max-h-[350px] overflow-y-auto md:flex flex-col justify-center items-center p-3 md:p-5"
+                : "rounded-lg border   md:mb-0 shadow-lg w-full h-[400px] max-h-[350px] overflow-y-auto flex-col  p-3 md:p-5"
             }
           >
             {userChatList.length == 0 ? (
@@ -193,7 +194,7 @@ function index() {
             )}
           </div>
         ) : (
-          <div className="rounded-lg md:hidden  border mb-8 md:mb-0 shadow-lg w-full justify-center items-center ">
+          <div className="rounded-lg md:hidden  border  shadow-lg w-full justify-center items-center ">
             {activechat == null ? (
               <div className="space-y-3 flex justify-center items-center flex-col">
                 <ImFilesEmpty className="text-4xl " />
@@ -201,7 +202,7 @@ function index() {
               </div>
             ) : (
               <>
-                <div className="h-[350px] max-h-[350px] w-full relative  flex-col  p-3 md:p-5">
+                <div className="h-[400px] max-h-[400px] w-full relative  flex-col  p-3 md:p-5">
                   <b
                     onClick={() => setActivechat(null)}
                     className="hover:underline flex md:hidden"

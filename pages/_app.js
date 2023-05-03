@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }) {
     <Provider store={store}>
       <Head />
       <Navbar />{" "}
-      <div className="pt-24">
+      <div className="pt-12 md:pt-24">
         <Layout>
           <SnackbarProvider maxSnack={3}>
             <div>
