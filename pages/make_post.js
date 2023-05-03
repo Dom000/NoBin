@@ -176,7 +176,7 @@ function make_post() {
             className=" px-2 py-1  focus:outline-NoBingreen border-2 border-black/40 rounded-md w-full "
           />
           {typing && (
-            <div className="w-full z-30 bg-white rounded-sm max-h-[200px] h-[130px] md:h-[00px] overflow-y-auto space-y-2 shadow-lg absolute">
+            <div className="w-full z-30 bg-white rounded-sm max-h-[200px] h-[130px] md:h-[100px] overflow-y-auto space-y-2 shadow-lg absolute">
               {adress.length == 0 ? (
                 <div className="flex justify-center items-center">
                   <Loader color="dark" size={"sm"} />
